@@ -7,16 +7,12 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  #FLAKES
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -27,6 +23,11 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  
+  #FLAKES
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -38,25 +39,23 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "ur_PK";
-    LC_IDENTIFICATION = "ur_PK";
-    LC_MEASUREMENT = "ur_PK";
-    LC_MONETARY = "ur_PK";
-    LC_NAME = "ur_PK";
-    LC_NUMERIC = "ur_PK";
-    LC_PAPER = "ur_PK";
-    LC_TELEPHONE = "ur_PK";
-    LC_TIME = "ur_PK";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-###  services.xserver.displayManager.gdm.enable = true;
-###  services.xserver.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  # Enable the XFCE Desktop Environment.
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -90,9 +89,9 @@
   users.users.latte = {
     isNormalUser = true;
     description = "Latte";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "video"];
     packages = with pkgs; [
-
+    #  thunderbird
     ];
   };
 
@@ -105,20 +104,26 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
- # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default  #     wget
-	vim
-	fastfetch
-	vscodium
-	htop
-	btop
-	sl
-	cmatrix
-	cbonsai
-	git 
-	tealdeer
-	xclip 
-	bat 
+        vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #    wget
+        tree
+        htop
+        btop
+        sl
+        fastfetch
+        bat
+        fzf
+	killall
+	ranger
+	links2
+	git
   ];
+
+  # EMACS
+  
+
+
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -138,6 +143,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
