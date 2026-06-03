@@ -1,0 +1,31 @@
+For the custom plugins i use for easy use and better view of XFCE 
+
+ dpkg -l | grep xfce4-.*plugin
+
+
+ii  xfce4-battery-plugin:amd64            1.1.5-1+b4                               amd64        battery monitor plugin for the Xfce4 panel
+ii  xfce4-clipman-plugin                  2:1.6.6-1                                amd64        clipboard history plugin for Xfce panel
+ii  xfce4-cpufreq-plugin:amd64            1.2.8-2+b4                               amd64        cpufreq information plugin for the Xfce4 panel
+ii  xfce4-cpugraph-plugin:amd64           1.2.10-1+b3                              amd64        CPU load graph plugin for the Xfce4 panel
+ii  xfce4-datetime-plugin:amd64           0.8.3-1+b4                               amd64        date and time plugin for the Xfce4 panel
+ii  xfce4-dict                            0.8.8-1                                  amd64        Dictionary plugin for Xfce4 panel
+ii  xfce4-diskperf-plugin:amd64           2.7.0-1+b4                               amd64        disk performance display plugin for the Xfce4 panel
+ii  xfce4-docklike-plugin                 0.5.1-2+b1                               amd64        Modern, minimalist taskbar for Xfce
+ii  xfce4-eyes-plugin:amd64               4.7.0-1+b1                               amd64        eyes that follow your mouse for the Xfce4 panel
+ii  xfce4-fsguard-plugin:amd64            1.1.3-1+b4                               amd64        filesystem monitor plugin for the Xfce4 panel
+ii  xfce4-genmon-plugin:amd64             4.3.0-1+b2                               amd64        Generic Monitor for the Xfce4 panel
+ii  xfce4-mailwatch-plugin                1.3.1-1+b2                               amd64        mail watcher plugin for the Xfce4 panel
+ii  xfce4-netload-plugin:amd64            1.5.0-1+b1                               amd64        network load monitor plugin for the Xfce4 panel
+ii  xfce4-notes-plugin                    1.12.0-1                                 amd64        Notes plugin for the Xfce4 desktop
+ii  xfce4-places-plugin:amd64             1.8.3-1+b4                               amd64        quick access to folders, documents and removable media
+ii  xfce4-power-manager-plugins           4.20.0-1                                 amd64        power manager plugins for Xfce panel
+ii  xfce4-pulseaudio-plugin:amd64         0.5.1-1+b1                               amd64        Xfce4 panel plugin to control pulseaudio
+ii  xfce4-sensors-plugin                  1.4.4-1+b1                               amd64        hardware sensors plugin for the Xfce4 panel
+ii  xfce4-smartbookmark-plugin:amd64      0.5.2-1+b4                               amd64        search the web via the Xfce4 panel
+ii  xfce4-systemload-plugin:amd64         1.3.2-2+b4                               amd64        system load monitor plugin for the Xfce4 panel
+ii  xfce4-timer-plugin:amd64              1.7.3-1+b2                               amd64        timer plugin for Xfce panel
+ii  xfce4-verve-plugin:amd64              2.0.3-1+b4                               amd64        Verve (command line) plugin for Xfce panel
+ii  xfce4-wavelan-plugin:amd64            0.6.3-1+b4                               amd64        wavelan status plugin for the Xfce4 panel
+ii  xfce4-weather-plugin:amd64            0.12.0-1+b2                              amd64        weather information plugin for the Xfce4 panel
+ii  xfce4-whiskermenu-plugin              2.10.1-1                                 amd64        Alternate menu plugin for the Xfce desktop environment
+ii  xfce4-xkb-plugin:amd64                1:0.8.5-1+b2                             amd64        xkb layout switch plugin for the Xfce4 panel
