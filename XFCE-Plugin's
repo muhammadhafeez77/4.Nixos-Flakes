@@ -29,3 +29,7 @@ ii  xfce4-wavelan-plugin:amd64            0.6.3-1+b4                            
 ii  xfce4-weather-plugin:amd64            0.12.0-1+b2                              amd64        weather information plugin for the Xfce4 panel
 ii  xfce4-whiskermenu-plugin              2.10.1-1                                 amd64        Alternate menu plugin for the Xfce desktop environment
 ii  xfce4-xkb-plugin:amd64                1:0.8.5-1+b2                             amd64        xkb layout switch plugin for the Xfce4 panel
+
+
+Although these plugins are of debian based system , if you want to use them systems like Arch based , then use compare them to download them . For Nix , it lacks the binaries for that , 
+so you have to download them using pkgs (FIrst checking them in (https://mynixos.com/) . if not there , then download them from XFCE website and make a container and compile them maunally. 
