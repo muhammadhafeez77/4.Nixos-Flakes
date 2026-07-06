@@ -7,6 +7,7 @@ import subprocess
 
 
 mod = "mod4"
+keys = []
 terminal = guess_terminal()
 
 myTerm = "alacritty" 
@@ -34,12 +35,8 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key(
-        [mod, "shift"],
-        "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
-    ),
+    Key([mod, "shift"],"Return",lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack",),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -58,13 +55,23 @@ keys = [
     Key([mod], "e", lazy.spawn("thunar"), desc = "Spawn Thunar"),
     Key([mod], "d", lazy.spawn("rofi -show drun -show-icons"), desc='Run Launcher'),
 
-    Key(
-        [mod], 
-        "s",
+    Key([mod], "s",
         lazy.spawn('sh -c "maim -s | xclip -selection clipboard -t image/png -i"'),
-        desc="Screenshot"
-    ),
+        desc="Screenshot"),
    
+    # Volume
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),    
+ #   Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
+    Key([], "XF86AudioRaiseVolume", 
+        lazy.spawn("bash -c 'vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP \"\\d+(?=%)\" |head -1); [ $vol -lt 150 ] && pactl set-sink-volume @DEFAULT_SINK@ +5%'")     ),
+
+    # Mic mute (check xkeysyms for exact name)
+    Key([], "XF86AudioMicMute", lazy.spawn("pactl set-source-mute @DEFAULT_SOURCE@ toggle")),
+    
+    # Brightness
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -142,7 +149,7 @@ layouts = [
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
-    # layout.TreeTab(),
+     layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
@@ -165,7 +172,7 @@ screens = [
             widgets = [
                 widget.Spacer(length = 8),
                 widget.Image(
-                    filename = "~/.config/qtile/icons/NixOS.png",
+                    filename = "~/.config/qtile/icons/NixOS.png", # Make a folder name 'icons' and put your image in it
                     scale = "False",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("qtilekeys-yad")},
                 ),
@@ -215,13 +222,6 @@ screens = [
                     padding = 8,
                     max_chars = 40
                 ),
-               # widget.GenPollText(
-               #     update_interval = 300,
-               #     func = lambda: subprocess.check_output("printf $(uname -r)", shell=True, text=True),
-               #     foreground = colors[3],
-               #     padding = 8, 
-               #     fmt = '{}',
-               # ),
                 sep,
                 widget.CPU(
                     foreground = colors[4],
@@ -249,11 +249,21 @@ screens = [
                 #    visible_on_warn = False,
                 #),
                 sep,
+               widget.Volume(
+                  foreground=colors[7],
+                  padding=8,
+                  fmt='Vol: {}',   # M is Mute
+                  get_volume_command='pactl get-sink-volume @DEFAULT_SINK@',
+                  check_mute_command='pactl get-sink-mute @DEFAULT_SINK@',
+                  check_mute_string='yes',
+                  limit_max_volume=True,
+                ),
+                sep,
                 widget.Battery(
                     foreground=colors[6],           # pick a palette slot you like
                     padding=8,
                     update_interval=5,
-                    format='{percent:2.0%}',       # e.g. "73% ⚡ 1:45"
+                    format='{percent:2.0%} {char}',       # e.g. "73% ⚡"
                     fmt='Battery: {}',
                     charge_char='',               # shown while charging
                     discharge_char='',            # Nerd icon; use '-' if you prefer plain ascii
@@ -263,13 +273,7 @@ screens = [
                     mouse_callbacks={
                         'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e upower -i $(upower -e | grep BAT)'),
                     },
-                ),
-                sep,
-                widget.Volume(
-                    foreground = colors[7],
-                    padding = 8, 
-                    fmt = 'Vol: {}',
-                ),
+                ), 
                 sep,
                 widget.Clock(
                     foreground = colors[3],
@@ -283,6 +287,8 @@ screens = [
             margin=[0, 0, 0, 0], 
             size=30
         ),
+        wallpaper= "~/Pictures/castle.jpg",
+        wallpaper_mode="center",
     ),
 ]
 

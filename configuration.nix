@@ -1,20 +1,13 @@
 { config, lib, pkgs, ... }:
 
-let 
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz";
-in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-	(import "${home-manager}/nixos")
     ];
 
-  # Home Manager
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
-  home-manager.backupFileExtension = "backup";
-  home-manager.users.coffee = import ./home.nix;
+  #FLAKES
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -50,7 +43,6 @@ in
 	'';
  };
   
-  
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.coffee = {
      isNormalUser = true;
@@ -65,45 +57,11 @@ in
   # List packages installed in system profile.
   # To search for packages , run ,  nix search wget
   # You can use https://search.nixos.org/ to find more packages (and options).
+
+  #==========  PACKAGES ARE ADDED HERE BUT I'VE PUT THEM IN packages.nix AND IMPORTED INTO home.nix =====================
   environment.systemPackages = with pkgs; [
         vim-full 
-	neovim
-	alacritty
-        wget
-   	fastfetch
-	htop
-	btop
-	sl
-	cmatrix
-	cbonsai
-	git 
-	tealdeer
-	xclip 
-	maim	
-	slop
-	bat 
-	tree
-	fzf
-	killall
-	ranger
-        thunar
-        thunar-volman
-        thunar-media-tags-plugin        
-	xwallpaper
-	rofi
-	picom
-	mousepad
-	unzip
-	python3
-	gcc
-        brightnessctl	
-        cherrytree
-        #vlc
-        mpv
-        atril
-        ristretto
-        pulseaudio
-   ];
+  ];
 
   # Add Fonts
   fonts.packages = with pkgs; [
