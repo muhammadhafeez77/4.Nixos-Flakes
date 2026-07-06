@@ -32,7 +32,16 @@ in
   # Set your time zone.
   time.timeZone = "Asia/Karachi"; # CHange time for your secific zone
 
+  # Enable sound.
+  # services.pulseaudio.enable = true;
+  # OR
+   services.pipewire = {
+     enable = true;
+     pulse.enable = true;
+   };
+
   # Enable the X11 windowing system.
+
   services.xserver = {
 	enable=true;
 	windowManager.qtile.enable = true;
@@ -77,7 +86,9 @@ in
 	fzf
 	killall
 	ranger
-	thunar	 
+        thunar
+        thunar-volman
+        thunar-media-tags-plugin        
 	xwallpaper
 	rofi
 	picom
@@ -85,7 +96,13 @@ in
 	unzip
 	python3
 	gcc
-	
+        brightnessctl	
+        cherrytree
+        #vlc
+        mpv
+        atril
+        ristretto
+        pulseaudio
    ];
 
   # Add Fonts
@@ -114,7 +131,8 @@ in
   # So that sudo vim also yanks properly 
   security.sudo.extraConfig = ''
      Defaults env_keep += "DISPLAY XAUTHORITY"
-    '';
+    '';      # I also put vim to yank in sudo , in home.nix . I dunno which one works but 
+             # If something is working , don't disturb it.  >>> '. .' <<< HEHE
 
   #Enable Picom for transparency 
   services.picom = {
@@ -136,15 +154,7 @@ in
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
+  # services.printing.enable = true; 
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
