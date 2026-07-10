@@ -1,0 +1,69 @@
+{ pkgs, ... }:
+
+{
+  home.packages = with pkgs; [
+    alacritty
+    wget
+    fastfetch
+    htop
+    btop
+    sl
+    cmatrix
+    cbonsai
+    git
+    tealdeer
+    xclip
+    maim
+    slop
+    bat
+    tree
+    fzf
+    killall
+    ranger
+    thunar
+    thunar-volman
+    thunar-media-tags-plugin
+    xwallpaper
+    rofi
+    picom
+    unzip
+    python3
+    brightnessctl
+    cherrytree
+    mpv
+    atril
+    ristretto
+    pulseaudio
+    vlc
+    cava
+    fd
+    ripgrep
+    nil
+    nixpkgs-fmt
+    nodejs
+    xrdp
+    obs-studio
+    obs-studio-plugins.obs-vnc
+    x11vnc
+    lua-language-server
+    vscode-langservers-extracted
+    intelephense
+    typescript-language-server
+    typescript
+    #libclang
+    clang-tools
+    gcc
+    gnumake
+    cmake
+    pandoc
+    lowdown
+    coreutils
+    gnutls
+    imagemagick
+    zstd
+    vscode
+    emacs
+    zellij
+    # add all your packages here
+  ];
+}

@@ -2,12 +2,14 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
   #FLAKES
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.allowUnfree = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -28,31 +30,31 @@
   # Enable sound.
   # services.pulseaudio.enable = true;
   # OR
-   services.pipewire = {
-     enable = true;
-     pulse.enable = true;
-   };
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
 
   # Enable the X11 windowing system.
 
   services.xserver = {
-	enable=true;
-	windowManager.qtile.enable = true;
-	displayManager.sessionCommands = ''
-	xset r rate 200 35 &
-	'';
- };
-  
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-   users.users.coffee = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-     packages = with pkgs; [
-       tree
-     ];
-   };
+    enable = true;
+    windowManager.qtile.enable = true;
+    displayManager.sessionCommands = ''
+      	xset r rate 200 35 &
+      	'';
+  };
 
-   programs.firefox.enable = true;
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.coffee = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      tree
+    ];
+  };
+
+  programs.firefox.enable = true;
 
   # List packages installed in system profile.
   # To search for packages , run ,  nix search wget
@@ -60,43 +62,45 @@
 
   #==========  PACKAGES ARE ADDED HERE BUT I'VE PUT THEM IN packages.nix AND IMPORTED INTO home.nix =====================
   environment.systemPackages = with pkgs; [
-        vim-full 
+    nano
+    vim-full
+    neovim
   ];
 
   # Add Fonts
   fonts.packages = with pkgs; [
- 	jetbrains-mono
-   ];
+    jetbrains-mono
+  ];
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-	services.openssh = {
-  	enable = true;
-  	settings = {
-    	X11Forwarding = false;
-    		PermitRootLogin = "yes"; 
-    		PasswordAuthentication = true; 
-       };
-   };
+  services.openssh = {
+    enable = true;
+    settings = {
+      X11Forwarding = false;
+      PermitRootLogin = "yes";
+      PasswordAuthentication = true;
+    };
+  };
 
   #Set FZF as Reverse search in terminal
   programs.bash.interactiveShellInit = ''
-  source ${pkgs.fzf}/share/fzf/completion.bash
-  source ${pkgs.fzf}/share/fzf/key-bindings.bash
-    '';
+    source ${pkgs.fzf}/share/fzf/completion.bash
+    source ${pkgs.fzf}/share/fzf/key-bindings.bash
+  '';
 
   # So that sudo vim also yanks properly 
   security.sudo.extraConfig = ''
-     Defaults env_keep += "DISPLAY XAUTHORITY"
-    '';      # I also put vim to yank in sudo , in home.nix . I dunno which one works but 
-             # If something is working , don't disturb it.  >>> '. .' <<< HEHE
+    Defaults env_keep += "DISPLAY XAUTHORITY"
+  ''; # I also put vim to yank in sudo , in home.nix . I dunno which one works but 
+  # If something is working , don't disturb it.  >>> '. .' <<< HEHE
 
   #Enable Picom for transparency 
   services.picom = {
-	enable = true;
-	backend = "glx";
-	fade = true;
+    enable = true;
+    backend = "glx";
+    fade = true;
   };
 
   # ============ Pushing all the things i dont need for the moment at bottom . It'll be a hassle to write them again. ==============
@@ -144,7 +148,7 @@
 
 
   # ===============================================================          ================================================================== 
-  
+
   # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment? Probably :)
