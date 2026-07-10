@@ -48,13 +48,27 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.coffee = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "disk" "plugdev" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
   };
 
   programs.firefox.enable = true;
+
+  # Required services for USB mounting and volume management
+  services.dbus.enable = true;
+  services.dbus.packages = [ pkgs.gvfs ];
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  services.tumbler.enable = true; # thumbnail support (optional but nice)
+
+  # Ensure Thunar and its volume manager plugin are enabled
+  programs.thunar.enable = true;
+  programs.thunar.plugins = with pkgs.xfce; [
+    pkgs.thunar-archive-plugin
+    pkgs.thunar-volman
+  ];
 
   # List packages installed in system profile.
   # To search for packages , run ,  nix search wget
